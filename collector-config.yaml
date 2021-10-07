@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:55680
+processors:
+  batch:
+    send_batch_max_size: 200
+    send_batch_size: 200
+    timeout: 60s
+exporters:
+  googlecloud:
+    project: dashpole-gke-dev
+    timeout: 15s
+    retry_on_failure:
+      enabled: false
+    metric:
+      skip_create_descriptor: false
+  logging:
+    logLevel: debug
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      # The batch processor causes this to fail.
+      processors: [batch]
+      exporters: [googlecloud, logging]

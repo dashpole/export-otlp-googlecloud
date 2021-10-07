@@ -50,13 +50,13 @@ func main() {
 
 	meter := global.Meter("")
 
-	valuerecorder := metric.Must(meter).NewInt64ValueRecorder("test.dummy.one")
+	valuerecorder := metric.Must(meter).NewInt64ValueRecorder("test.dummy.two")
 
 	valuerecorder.Record(ctx, 100, attribute.Any("rpc.method", "Hello"))
 	valuerecorder.Record(ctx, 20, attribute.Any("rpc.method", "Hi"))
-	valuerecorder.Record(ctx, 20, attribute.Any("rpc.method", "Hi"))
-	valuerecorder.Record(ctx, 25, attribute.Any("rpc.method", "Hi"))
-	valuerecorder.Record(ctx, 25, attribute.Any("rpc.method", "Hi"))
+	valuerecorder.Record(ctx, 20, attribute.Any("rpc.method", "Cya"))
+	valuerecorder.Record(ctx, 25, attribute.Any("rpc.method", "Foo"))
+	valuerecorder.Record(ctx, 25, attribute.Any("rpc.method", "Bar"))
 
 	time.Sleep(time.Second * 5) // wait for metrics to be collected
 }
